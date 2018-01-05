@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>PCF Spring Boot Demo</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+</head>
+<body>
+
+<!-- Navigation Bar -->
+
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="./"><img
+            src="/images/icon_cf_green.png"
+            style="width: 40px; height: 40px; margin-top: -15px;" />&nbsp; PCF Spring Boot Demo</a>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" th:href="@{/emps}">Employees</a>
+                    <a class="dropdown-item" th:href="@{/cfdetails}">CF Details</a>
+                    <a class="dropdown-item" th:href="@{/killme}">Kill Me</a>
+                </div>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            App GUID [<span th:text="${appMap['application_id']}"/>] &nbsp;
+            Index [<span th:text="${appMap['instance_index']}"/>]
+        </span>
+    </div>
+</nav>
+
+<br />
+<div>
+    <div class="page-header">
+        <h3>PCF Spring Boot Demo - <small>Instance Details</small></h3>
+    </div>
+</div>
+
+<div th:if="not ${appMap.isEmpty()}">
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Awesome!</strong> Your successfully running this demo within Pivotal Cloud Foundry
+    </div>
+</div>
+
+<div th:if="${appMap.isEmpty()}">
+    <div class="alert alert-info" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Heads up!</strong> This application is meant to run within Pivotal Cloud Foundry
+    </div>
+</div>
+
+<div class="card-columns">
+        <div th:each="instance : ${instances}">
+            <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+                <div class="card-block">
+                    <h3 class="card-title">Instance Index {<span th:text="${instance.appindex}"/>} </h3>
+                    <p class="card-text"><span th:text="${instance.appguid}"/></p>
+                    <a th:href="@{/destroyInstance(appIndex=${instance.appindex},appURI=${appURI},appGUID=${appMap['application_id']})}" class="btn btn-primary">Kill Me</a>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div th:include="footer :: copy"></div>
+
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+</body>
+</html>

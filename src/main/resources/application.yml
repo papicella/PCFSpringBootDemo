@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: PCFSpringBootDemo
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    tomcat:
+      initial-size: 1
+      #max-active: 1
+endpoints:
+  actuator:
+    enabled: true
+management:
+  security:
+    enabled: false

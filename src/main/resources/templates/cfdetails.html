@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>PCF Spring Boot Demo</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+</head>
+<body>
+
+<!-- Navigation Bar -->
+
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="./"><img
+            src="/images/icon_cf_green.png"
+            style="width: 40px; height: 40px; margin-top: -15px;" />&nbsp; PCF Spring Boot Demo</a>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" th:href="@{/emps}">Employees</a>
+                    <a class="dropdown-item" th:href="@{/cfdetails}">CF Details</a>
+                    <a class="dropdown-item" th:href="@{/killme}">Kill Me</a>
+                </div>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            App GUID [<span th:text="${appMap['application_id']}"/>] &nbsp;
+            Index [<span th:text="${appMap['instance_index']}"/>]
+        </span>
+    </div>
+</nav>
+
+<div>
+    <div class="page-header">
+        <h1>PCF Spring Boot Demo - <small>CF Details</small></h1>
+    </div>
+</div>
+
+<div class="card w-75 card-outline-primary">
+    <div class="card-block">
+        <h4 class="card-title">VCAP_SERVICES, VCAP_APPLICATION will only be valid within Cloud Foundry</h4>
+        <p class="card-text"><strong>Note:</strong> Click on the linked heading text to expand or collapse</p>
+        <p class="card-text">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">JVM PROPERTIES</a>
+                        </h6>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-hover table-bordered table-striped table-condensed">
+                                <div th:each="item : ${propertyMap}">
+                                    <tr>
+                                        <td><span th:text="${item.key}" /></td>
+                                        <td><span th:text="${item.value}" /></td>
+                                    </tr>
+                                </div>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">VCAP_SERVICES</a>
+                        </h6>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-hover table-bordered table-striped table-condensed">
+                                <div th:each="item : ${servicesMap}">
+                                    <tr>
+                                        <td><span th:text="${item.key}" /></td>
+                                        <td><span th:text="${item.value}" /></td>
+                                    </tr>
+                                </div>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">VCAP_APPLICATION</a>
+                        </h6>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-hover table-bordered table-striped table-condensed">
+                                <div th:each="item : ${appMap}">
+                                    <tr>
+                                        <td><span th:text="${item.key}" /></td>
+                                        <td><span th:text="${item.value}" /></td>
+                                    </tr>
+                                </div>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p>
+    </div>
+</div>
+<br />
+<div class="card w-75 card-outline-primary">
+    <div class="card-block">
+        <h4 class="card-title">RESTful Endpoints for REST API and ACTUATOR</h4>
+        <p class="card-text">
+            <div>
+                <h6> Spring Rest Repositories </h6>
+                <ul>
+                    <li><a href="/employess" target="_new">Employees Rest Repository</a> </li>
+                    <li><a href="/instances" target="_new">Instances Rest Repository </a> </li>
+                </ul>
+                <h6> Spring Boot Actuator </h6>
+                <ul>
+                    <li><a href="/env" target="_new">Environment for shell/JVM</a> </li>
+                    <li><a href="/beans" target="_new">Spring Context Beans</a> </li>
+                    <li><a href="/autoconfig" target="_new">auto-configuration</a> </li>
+                    <li><a href="/mappings" target="_new">URI request mappings</a> </li>
+                    <li><a href="/trace" target="_new">Displays trace information</a> </li>
+                    <li><a href="/dump" target="_new">Performs Thread Dump</a> </li>
+                    <li><a href="/metrics" target="_new">Display Metrics</a> </li>
+                </ul>
+            </div>
+        </p>
+    </div>
+</div>
+
+<div th:include="footer :: copy"></div>
+
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+</body>
+</html>
