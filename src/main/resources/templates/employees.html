@@ -61,7 +61,7 @@
 
 <div class="card w-75 card-outline-primary">
     <div class="card-block">
-        <h4 class="card-title">Spring Starter JPA</h4>
+        <h4 class="card-title">Spring Boot Starter JPA</h4>
         <p class="card-text">The data below is using the Spring Boot starter 'spring-boot-starter-data-jpa' to store/retrieve data</p>
         <p class="card-text">
             <a th:href="@{/addEmps}" class="btn btn-primary">Add Employees</a>
@@ -79,7 +79,7 @@
                 </thead>
                 <tbody>
                 <div th:each="employee : ${employees}">
-                    <tr>
+                    <tr class="table-success">
                         <td style="text-align:center"><span th:text="${employee.id}"/></td>
                         <td style="text-align:center"><span th:text="${employee.name}"/></td>
                         <td style="text-align:center"><span th:text="${employee.job}"/></td>
