@@ -80,13 +80,37 @@
     </div>
 </div>
 
+<div>
+    <div class="alert alert-info" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Note: </strong> You are unable to kill the current running instance
+    </div>
+</div>
+
 <div class="card-columns">
         <div th:each="instance : ${instances}">
             <div class="card card-inverse" style="background-color: #333; border-color: #333;">
                 <div class="card-block">
                     <h3 class="card-title">Instance Index {<span th:text="${instance.appindex}"/>} </h3>
                     <p class="card-text"><span th:text="${instance.appguid}"/></p>
-                    <a th:href="@{/destroyInstance(appIndex=${instance.appindex},appURI=${appURI},appGUID=${appMap['application_id']})}" class="btn btn-primary">Kill Me</a>
+                    <div th:if="${instance.appindex} == ${appMap['instance_index']}">
+                        <a th:href="@{/destroyInstance(appIndex=${instance.appindex},appURI=${appURI},appGUID=${appMap['application_id']})}"
+                           class="btn btn-primary disabled">
+                            Kill Me
+                        </a>
+                    </div>
+                    <div th:if="${instance.appindex} != ${appMap['instance_index']}">
+                        <a th:href="@{/destroyInstance(appIndex=${instance.appindex},appURI=${appURI},appGUID=${appMap['application_id']})}"
+                           class="btn btn-primary">
+                            Kill Me
+                        </a>
+                    </div>
+                    <br />
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Application <span th:text="${instance.appname}"/></small>
                 </div>
             </div>
         </div>

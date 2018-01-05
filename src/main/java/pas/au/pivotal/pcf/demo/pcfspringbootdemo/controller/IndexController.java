@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @Controller
 public class IndexController {
@@ -41,14 +40,7 @@ public class IndexController {
 
         // get application URI
         List appURIList = (ArrayList) appMap.get("application_uris");
-
-        String appURI = "Unknown";
-
-        if (appURIList != null) {
-            if (appURIList.size() > 0) {
-                appURI = (String) appURIList.get(0);
-            }
-        }
+        String appURI = getAppURI(appURIList);
 
         logger.info("appURI = " + appURI);
 
@@ -61,33 +53,6 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping ("/killme")
-    public String killInstance (Model model) throws Exception
-    {
-        model.addAttribute("killed", true);
-        logger.warn("*** The system is shutting down. ***");
-        Runnable killTask = () -> {
-            try {
-                String name = Thread.currentThread().getName();
-                logger.warn("killing shortly " + name);
-                TimeUnit.SECONDS.sleep(5);
-                logger.warn("killed " + name);
-                System.exit(0);
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        };
-        new Thread(killTask).start();
-
-        model.addAttribute("appMap", Utils.getVcapApplicationMap());
-        model.addAttribute("instances", instanceRepository.findAll());
-
-        logger.info("App Instances count = " + instanceRepository.count());
-        logger.info("Returning index.html page");
-
-        return "index";
-    }
 
     @RequestMapping ("/destroyInstance")
     public String killInstance (Model model, HttpServletRequest request) throws Exception
@@ -117,12 +82,29 @@ public class IndexController {
         instanceRepository.delete(instance.getId());
         logger.info("Removed instance form instanceRepository with ID: " + instance.getId());
 
-        model.addAttribute("appMap", Utils.getVcapApplicationMap());
+        Map appMap = Utils.getVcapApplicationMap();
+
+        logger.info("appURI = " + appURI);
+
+        model.addAttribute("appMap", appMap);
+        model.addAttribute("appURI", appURI);
         model.addAttribute("instances", instanceRepository.findAll());
 
         logger.info("App Instances count = " + instanceRepository.count());
         logger.info("Returning index.html page");
 
         return "index";
+    }
+
+    private String getAppURI (List appURIList) {
+        String appURI = "Unknown";
+
+        if (appURIList != null) {
+            if (appURIList.size() > 0) {
+                appURI = (String) appURIList.get(0);
+            }
+        }
+
+        return appURI;
     }
 }

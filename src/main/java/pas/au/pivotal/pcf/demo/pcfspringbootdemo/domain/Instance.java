@@ -19,6 +19,9 @@ public class Instance {
     @Column(nullable = false)
     private String appindex;
 
+    @Column(nullable = false)
+    private String appname;
+
     public Instance() {
     }
 
@@ -46,12 +49,21 @@ public class Instance {
         this.appindex = appindex;
     }
 
+    public String getAppname() {
+        return appname;
+    }
+
+    public void setAppname(String appname) {
+        this.appname = appname;
+    }
+
     @Override
     public String toString() {
         return "Instance{" +
                 "id=" + id +
                 ", appguid='" + appguid + '\'' +
                 ", appindex='" + appindex + '\'' +
+                ", appname='" + appname + '\'' +
                 '}';
     }
 }

@@ -5,8 +5,11 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    tomcat:
+    dbcp2:
       initial-size: 1
+      max-total: 1
+      remove-abandoned-on-borrow: true
+      remove-abandoned-on-maintenance: true
 endpoints:
   actuator:
     enabled: true

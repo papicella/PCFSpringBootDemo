@@ -23,11 +23,13 @@ public class PcfspringbootdemoApplication {
 	{
 		String appGUID = "N/A";
 		String instanceIndex = "N/A";
+		String applicationName = "N/A";
 
 		try
 		{
 			appGUID = Utils.getVcapApplicationMap().getOrDefault("application_id", "N/A").toString();
 			instanceIndex = Utils.getVcapApplicationMap().getOrDefault("instance_index", "N/A").toString();
+			applicationName = Utils.getVcapApplicationMap().getOrDefault("application_name", "N/A").toString();
 		}
 		catch (Exception ex) {
 		}
@@ -35,6 +37,7 @@ public class PcfspringbootdemoApplication {
 		Instance instance = new Instance();
 		instance.setAppguid(appGUID);
 		instance.setAppindex(instanceIndex);
+		instance.setAppname(applicationName);
 
 		instanceRepository.save(instance);
 	}
