@@ -7,7 +7,6 @@ spring:
   datasource:
     tomcat:
       initial-size: 1
-      #max-active: 1
 endpoints:
   actuator:
     enabled: true
