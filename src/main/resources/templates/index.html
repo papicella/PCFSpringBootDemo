@@ -6,49 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>PCF Spring Boot Demo</title>
 
+    <link rel="stylesheet" th:href="@{themes/bootstrap-darkly.css}" media="screen" />
+    <link rel="stylesheet" th:href="@{themes/custom-darkly.min.css}" />
+
     <!-- Bootstrap CSS -->
+    <!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+    -->
 </head>
 <body>
 
 <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" th:href="@{/}"><img
+                src="/images/icon_cf_green.png"
+                style="width: 40px; height: 40px; margin-top: -15px;" />&nbsp; PCF Spring Boot Demo</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/emps}">Employees</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cfdetails}">CF Details</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" target="_blank">
+                        App GUID [<span th:text="${appMap['application_id']}"/>]
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" target="_blank">
+                        Index [<span th:text="${appMap['instance_index']}"/>]
+                    </a>
+                </li>
+            </ul>
 
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <a class="navbar-brand" href="./"><img
-            src="/images/icon_cf_green.png"
-            style="width: 40px; height: 40px; margin-top: -15px;" />&nbsp; PCF Spring Boot Demo</a>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" th:href="@{/emps}">Employees</a>
-                    <a class="dropdown-item" th:href="@{/cfdetails}">CF Details</a>
-                    <a class="dropdown-item" th:href="@{/killme}">Kill Me</a>
-                </div>
-            </li>
-        </ul>
-        <span class="navbar-text">
-            App GUID [<span th:text="${appMap['application_id']}"/>] &nbsp;
-            Index [<span th:text="${appMap['instance_index']}"/>]
-        </span>
+        </div>
     </div>
 </nav>
 
 <br />
-<div>
+<div class="col-lg-12">
     <div class="page-header">
-        <h3>PCF Spring Boot Demo - <small>Instance Details</small></h3>
+        <h2>PCF Spring Boot Demo - <small>Instance Details</small></h2>
     </div>
 </div>
+<br />
 
 <div th:if="not ${appMap.isEmpty()}">
     <div class="alert alert-success" role="alert">
@@ -79,6 +91,7 @@
             </div>
         </div>
 </div>
+
 
 <div th:include="footer :: copy"></div>
 

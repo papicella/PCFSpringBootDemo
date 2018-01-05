@@ -6,15 +6,23 @@
 <body>
 
 <div th:fragment="copy">
-    <hr size="2" />
-    <div style="text-align:right">
-        <img src="images/PoweredByPivotal1.png"
-             th:src="@{images/PoweredByPivotal1.png}"
-             alt="Powered By Pivotal"
-             border="0"/>
-        <br />
-        &copy; 2018. <a href="mailto:papicella@pivotal.io">Pas Apicella</a>
-    </div>
+    <footer id="footer">
+        <div class="row">
+            <div class="col-lg-12">
+                <hr />
+                Made by <a href="mailto:papicella@pivotal.io">Pas Apicella</a>
+                <br />
+                Code released at GitHub Location<a href="https://github.com/papicella/PCFSpringBootDemo"> https://github.com/papicella/PCFSpringBootDemo</a>
+                <br />
+                <img src="images/PoweredByPivotal1.png"
+                     th:src="@{images/PoweredByPivotal1.png}"
+                     alt="Powered By Pivotal"
+                     border="0"/>
+                <br />
+                &copy; 2018.
+            </div>
+        </div>
+    </footer>
 </div>
 
 </body>
